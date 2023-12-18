@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            width: 300px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            margin-top: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <form id="signupForm" action="{% url 'register' %}" method="POST">{% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+
+        <label for="firstName">Nome:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Ex: Matheus" required>
+
+        <label for="lastName">Sobrenome:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Ex: Santana" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="adress@domain.com" required>
+
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <label for="confirmPassword">Confirmar Senha:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+
+        <button type="submit" id="signupButton" disabled>Cadastrar-se</button>
+    </form>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const signupButton = document.getElementById('signupButton');
+
+        signupForm.addEventListener('input', () => {
+            const inputs = Array.from(signupForm.querySelectorAll('input'));
+            const isValid = inputs.every(input => input.value.trim() !== '' && input.checkValidity());
+
+            signupButton.disabled = !isValid || (document.getElementById('password').value !== document.getElementById('confirmPassword').value);
+        });
+        
+        
+        
+    </script>
+</body>
+</html>
